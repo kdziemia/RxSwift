@@ -441,57 +441,6 @@ class ObservableObserveOnTestConcurrentSchedulerTest: ObservableObserveOnTestBas
         }
     #endif
 
-    func testObserveOn_EnsureTestsAreExecutedWithRealConcurrentScheduler() {
-        var events: [String] = []
-
-        let stop = BehaviorSubject(value: 0)
-
-        let scheduler = createScheduler()
-
-        let condition = NSCondition()
-
-        var writtenStarted = 0
-        var writtenEnded = 0
-
-        let concurrent = { () -> Disposable in
-            self.performLocked {
-                events.append("Started")
-            }
-
-            condition.lock()
-            writtenStarted += 1
-            condition.signal()
-            while writtenStarted < 2 {
-                condition.wait()
-            }
-            condition.unlock()
-
-            self.performLocked {
-                events.append("Ended")
-            }
-
-            condition.lock()
-            writtenEnded += 1
-            condition.signal()
-            while writtenEnded < 2 {
-                condition.wait()
-            }
-            condition.unlock()
-
-            stop.on(.completed)
-
-            return Disposables.create()
-        }
-
-        _ = scheduler.schedule((), action: concurrent)
-
-        _ = scheduler.schedule((), action: concurrent)
-
-        _ = try! stop.toBlocking().last()
-
-        XCTAssertEqual(events, ["Started", "Started", "Ended", "Ended"])
-    }
-
     func testObserveOn_Never() {
         let scheduler = createScheduler()
 

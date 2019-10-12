@@ -1046,7 +1046,6 @@ final class ObservableObserveOnTestConcurrentSchedulerTest_ : ObservableObserveO
     #endif
 
     static var allTests: [(String, (ObservableObserveOnTestConcurrentSchedulerTest_) -> () -> Void)] { return [
-    ("testObserveOn_EnsureTestsAreExecutedWithRealConcurrentScheduler", ObservableObserveOnTestConcurrentSchedulerTest.testObserveOn_EnsureTestsAreExecutedWithRealConcurrentScheduler),
     ("testObserveOn_Never", ObservableObserveOnTestConcurrentSchedulerTest.testObserveOn_Never),
     ("testObserveOn_Simple", ObservableObserveOnTestConcurrentSchedulerTest.testObserveOn_Simple),
     ("testObserveOn_Empty", ObservableObserveOnTestConcurrentSchedulerTest.testObserveOn_Empty),
