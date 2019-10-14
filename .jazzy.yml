@@ -229,6 +229,7 @@ custom_categories:
   - Reduce
   - Repeat
   - RetryWhen
+  - RepeatWhen
   - Sample
   - Scan
   - Sequence
